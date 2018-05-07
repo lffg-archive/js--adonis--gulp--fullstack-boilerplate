@@ -1,7 +1,6 @@
 'use strict'
 
 const BaseExceptionHandler = use('BaseExceptionHandler')
-const View = use('View')
 const Env = use('Env')
 
 /**
@@ -42,8 +41,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    * 
    * @method _handleInvalidSession
    */
-  async _handleInvalidSession (error, { response }) {
-    return response.send(View.render('errors.401'))
+  async _handleInvalidSession (error, { response, view }) {
+    return response.send(view.render('errors.401'))
   }
 
   /**
@@ -51,8 +50,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    * 
    * @method _handle404
    */
-  async _handle404 (error, { response }) {
-    return response.send(View.render('errors.404'))
+  async _handle404 (error, { response, view }) {
+    return response.send(view.render('errors.404'))
   }
 
   /**
@@ -60,8 +59,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    * 
    * @method _handle500
    */
-  async _handle500 (error, { response }) {
-    return response.send(View.render('errors.500'))
+  async _handle500 (error, { response, view }) {
+    return response.send(view.render('errors.500'))
   }
 }
 
