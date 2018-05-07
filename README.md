@@ -3,7 +3,7 @@
 To install it, run:
 
 ```shell
-adonis new modcp --blueprint lffg/adonis-fullstack-boilerplate
+adonis new yardstick --blueprint lffg/adonis-fullstack-boilerplate
 ```
 
 :)
