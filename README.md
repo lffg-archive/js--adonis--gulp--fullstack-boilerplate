@@ -6,4 +6,9 @@ To install it, run:
 adonis new yardstick --blueprint lffg/adonis-fullstack-boilerplate
 ```
 
+### Contents
+
+- Gulp (for front-end assets compiling);
+- Some view globals.
+
 :)
