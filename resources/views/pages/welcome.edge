@@ -5,13 +5,18 @@
 @endsection
 
 @section('content')
-  <section>
-    <div class="logo"></div>
-    <div class="title"></div>
-    <div class="subtitle">
-      <p>AdonisJs simplicity will make you feel confident about your code.</p>
-      <br />
-      <p>Current time: {{ moment(now()).format('HH:mm:ss') }}.</p>
+  <div class="container py-3 has-styles" style="display: none;">
+    <h1 class="display-4">Hello, world!</h1>
+    <p>Welcome to a custom <a href="https://adonisjs.com">AdonisJs</a> boilerplate!</p>
+    <div class="mt-3">
+      <a href="https://github.com/lffg/adonis-fullstack-boilerplate" class="btn btn-primary" title="Click-me!" data-toggle="tooltip">
+        GitHub Repository
+      </a>
     </div>
-  </section>
+  </div>
+
+  <div class="no-styles" style="margin: 3rem;">
+    <h1>Important:</h1>
+    <p>Run <code>npm run dev</code> or <code>npm run bundle</code> to compile the assets.</p>
+  </div>
 @endsection

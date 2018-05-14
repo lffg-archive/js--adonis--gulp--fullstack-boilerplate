@@ -1,0 +1,17 @@
+$theme-colors: (
+  "primary": #39c,
+  "danger": #ef3333,
+  "success": #68b800,
+  "warning": #f5ae42
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.has-styles {
+  display: block !important;
+}
+
+.no-styles {
+  display: none !important;
+}
+

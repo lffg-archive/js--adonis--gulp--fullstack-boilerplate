@@ -1,19 +1,28 @@
 {
   "name": "adonis-fullstack-app",
-  "version": "4.1.0",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
   "description": "The fullstack application boilerplate for Adonisjs",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test"
+    "test": "node ace test",
+
+    "dev": "concurrently --kill-others -p \"[{name}]\" -n \"SERVER,ASSETS\" -c \"bgGreen.bold,bgMagenta.bold\" \"npm run serve:dev\" \"npm run build:dev\"",
+
+    "serve": "adonis serve",
+    "serve:dev": "npm run serve -- --dev",
+    "build": "gulp build",
+    "build:dev": "gulp default"
   },
   "keywords": [
     "adonisjs",
-    "adonis-app"
+    "adonis-app",
+    "adonis-boilerplate",
+    "gulp"
   ],
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.1",
@@ -27,9 +36,23 @@
     "@adonisjs/session": "^1.0.23",
     "@adonisjs/shield": "^1.0.6",
     "@adonisjs/validator": "^5.0.3",
+    "gulp-concat": "^2.6.1",
     "moment": "^2.22.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "bootstrap": "^4.1.1",
+    "concurrently": "^3.5.1",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0"
+  },
   "autoload": {
     "App": "./app"
   }
