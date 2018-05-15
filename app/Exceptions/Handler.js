@@ -43,7 +43,7 @@ class ExceptionHandler extends BaseExceptionHandler {
   _respond (status = 500) {
     const { request, response, view } = this.ctx
 
-    if (request.accepts(['html', 'json']) === 'json') {
+    if (request.accepts(['json', 'html']) === 'json') {
       return this._respondViaJSON(status)
     }
 
