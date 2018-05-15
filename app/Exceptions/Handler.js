@@ -4,9 +4,17 @@ const BaseExceptionHandler = use('BaseExceptionHandler')
 const Env = use('Env')
 
 class ExceptionHandler extends BaseExceptionHandler {
-  async handle (errror, ctx) {
-    this.error = errror
+  /**
+   * Handles the HTTP errors.
+   *
+   * @param {object} error
+   * @param {object} ctx
+   */
+  async handle (error, ctx) {
+    this.error = error
     this.ctx = ctx
+
+    const { code, name, status } = error
 
     // Handle invalid session error:
     if (code === 'E_INVALID_SESSION') {
@@ -18,7 +26,7 @@ class ExceptionHandler extends BaseExceptionHandler {
       return this._respond(404)
     }
 
-    // Handle others errros (in development):
+    // Handle others erros (in development):
     if (Env.get('NODE_ENV') === 'development') {
       return super.handle(...arguments)
     }
@@ -27,6 +35,11 @@ class ExceptionHandler extends BaseExceptionHandler {
     return this._respond(500)
   }
 
+  /**
+   * Responds to a HTTP error.
+   *
+   * @param {number} status
+   */
   _respond (status = 500) {
     const { request, response, view } = this.ctx
 
@@ -40,10 +53,14 @@ class ExceptionHandler extends BaseExceptionHandler {
       response.send(view.render(`errors.${status}`))
     } catch (error) {
       // If there is no view:
-      response.send(`ERROR: ${status} server errror.`)
+      response.send(`ERROR: ${status} server error.`)
     }
   }
 
+  /**
+   * Responds via JSON to a HTTP error.
+   * @param {number} status
+   */
   _respondViaJSON (status = 500) {
     const { response } = this.ctx
 
