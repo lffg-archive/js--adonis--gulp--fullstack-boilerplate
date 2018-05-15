@@ -3,64 +3,59 @@
 const BaseExceptionHandler = use('BaseExceptionHandler')
 const Env = use('Env')
 
-/**
- * Error class handler.
- * 
- * @class ExceptionHandler
- */
 class ExceptionHandler extends BaseExceptionHandler {
-  /**
-   * Handle exception thrown during the HTTP lifecycle.
-   * 
-   * @method handle
-   */
-  async handle ({ code, name, status }, { response }) {
-    response.status(status || 500)
+  async handle (errror, ctx) {
+    this.error = errror
+    this.ctx = ctx
 
-    /** Handle E_INVALID_SESSION error: */
+    // Handle invalid session error:
     if (code === 'E_INVALID_SESSION') {
-      return this._handleInvalidSession(...arguments)
+      return this._respond(401)
     }
 
-    /** Handle 404 error: */
+    // Handle 404 error:
     if (name === 'HttpException' && status === 404) {
-      return this._handle404(...arguments)
+      return this._respond(404)
     }
 
-    /** If is in development: */
+    // Handle others errros (in development):
     if (Env.get('NODE_ENV') === 'development') {
       return super.handle(...arguments)
     }
 
-    /** Handle 500 error (in production): */
-    return this._handle500(...arguments)
+    // Handle 500 error if in production:
+    return this._respond(500)
   }
 
-  /**
-   * Handle invalid session error.
-   * 
-   * @method _handleInvalidSession
-   */
-  async _handleInvalidSession (error, { response, view }) {
-    return response.send(view.render('errors.401'))
+  _respond (status = 500) {
+    const { request, response, view } = this.ctx
+
+    if (request.accepts(['html', 'json']) === 'json') {
+      return this._respondViaJSON(status)
+    }
+
+    response.status(status)
+
+    try {
+      response.send(view.render(`errors.${status}`))
+    } catch (error) {
+      // If there is no view:
+      response.send(`ERROR: ${status} server errror.`)
+    }
   }
 
-  /**
-   * Handle 404 HTTP error.
-   * 
-   * @method _handle404
-   */
-  async _handle404 (error, { response, view }) {
-    return response.send(view.render('errors.404'))
-  }
+  _respondViaJSON (status = 500) {
+    const { response } = this.ctx
 
-  /**
-   * Handle 500 HTTP error.
-   * 
-   * @method _handle500
-   */
-  async _handle500 (error, { response, view }) {
-    return response.send(view.render('errors.500'))
+    const message = ({
+      401: 'Unauthorized',
+      404: 'Page not found',
+      500: 'Internal server error' // default one
+    })[status]
+
+    return response.status(status).json({
+      error: true, message, status
+    })
   }
 }
 
