@@ -7,9 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "node ace test",
-
     "dev": "concurrently --kill-others -p \"[{name}]\" -n \"SERVER,ASSETS\" -c \"bgGreen.bold,bgMagenta.bold\" \"npm run serve:dev\" \"npm run build:dev\"",
-
     "serve": "adonis serve",
     "serve:dev": "npm run serve -- --dev",
     "build": "gulp build",
@@ -44,6 +42,8 @@
     "babel-preset-env": "^1.7.0",
     "bootstrap": "^4.1.1",
     "concurrently": "^3.5.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-node": "^6.0.1",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.1",

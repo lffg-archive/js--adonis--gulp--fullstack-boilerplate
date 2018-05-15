@@ -1,0 +1,7 @@
+node_modules
+resources/assets
+
+test
+tests
+__test__
+__tests__
