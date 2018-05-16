@@ -7,7 +7,7 @@ To install it, run:
 adonis new yardstick --blueprint lffg/adonis-fullstack-boilerplate
 
 # Or Yarn:
-adonis new yardstick --yarn  --blueprint lffg/adonis-fullstack-boilerplate
+adonis new yardstick --blueprint lffg/adonis-fullstack-boilerplate --yarn
 ```
 
 ### Contents
